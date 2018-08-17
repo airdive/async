@@ -1,4 +1,4 @@
-package com.example.async.demo.service;
+package com.example.async.demo.callable;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,27 +14,30 @@ import java.util.concurrent.CountDownLatch;
  */
 @Setter
 @Getter
-public class ServiceA implements Callable<String> {
+public class ServiceB implements Callable<String> {
+
     private CountDownLatch curLatch;
 
     private CountDownLatch nextLatch;
 
     private String param1;
 
-    public ServiceA(String param1) {
-        this.param1 = param1;
-    }
+    private String param2;
 
+    public ServiceB(String param1,String param2){
+        this.param1=param1;
+        this.param2=param2;
+    }
 
     @Override
     public String call() throws Exception {
 //        System.out.println(this.getClass().getSimpleName()+": curLatch="+curLatch.getCount()+", nextLatch="+nextLatch.getCount());
-        if (curLatch != null)
+        if (curLatch!=null)
             curLatch.await();
-        Thread.sleep(1000);
-        if (nextLatch != null)
+        Thread.sleep(3000);
+        if (nextLatch!=null)
             nextLatch.countDown();
-        System.out.println(Thread.currentThread().getId()+":"+this.getClass().getSimpleName()+": "+param1);
-        return param1;
+        System.out.println(Thread.currentThread().getId()+":"+this.getClass().getSimpleName()+": "+param1+param2);
+        return param1+" + "+param2;
     }
 }

@@ -17,6 +17,7 @@ public class CompletableFutureDemo3 {
             timeConsumingOperation();
             return 100;
         });
+        //回调直接使用上一个异步调用的结果
         completableFuture = completableFuture.thenCompose(i -> {
             return CompletableFuture.supplyAsync(() -> {
                 System.out.println("在回调的回调中执行耗时操作...");

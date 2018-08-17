@@ -1,4 +1,4 @@
-package com.example.async.demo.service;
+package com.example.async.demo.callable;
 
 import lombok.Getter;
 import lombok.Setter;

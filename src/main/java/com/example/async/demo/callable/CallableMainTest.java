@@ -1,8 +1,8 @@
-package com.example.async.demo;
+package com.example.async.demo.callable;
 
-import com.example.async.demo.service.ServiceA;
-import com.example.async.demo.service.ServiceB;
-import com.example.async.demo.service.ServiceC;
+import com.example.async.demo.callable.ServiceA;
+import com.example.async.demo.callable.ServiceB;
+import com.example.async.demo.callable.ServiceC;
 
 import java.util.concurrent.*;
 
@@ -12,7 +12,7 @@ import java.util.concurrent.*;
  * @date: 2018/8/16 下午2:47
  * @modified by:
  */
-public class Main {
+public class CallableMainTest {
     public static void main(String[] args) {
         ExecutorService threadPool = Executors.newCachedThreadPool();
         ConcurrentLinkedQueue<Callable> queue = new ConcurrentLinkedQueue();
@@ -36,6 +36,7 @@ public class Main {
             System.out.println("latch: "+latchB.getCount());
             System.out.println("queue: "+queue.size());
         }
+
         System.out.println("pool: "+threadPool.isShutdown());
     }
 }
