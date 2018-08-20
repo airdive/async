@@ -13,14 +13,17 @@ import java.util.concurrent.ExecutionException;
 public class CompletableFutureDemo3 {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         long l = System.currentTimeMillis();
+        //不指定线程池，则使用默认ForkJoinPool.commonPool()系统级公共线程池
         CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(() -> {
             System.out.println("在回调中执行耗时操作..."+l);
             timeConsumingOperation();
+            System.out.println("date1-"+System.currentTimeMillis());
             return 100;
         });
         //thenCompose接收一个Function，返回一个CompletableFuture，组成一个chain，CompletableFuture的返回类型不能变
         completableFuture = completableFuture.thenCompose(i -> {
             return CompletableFuture.supplyAsync(() -> {
+                System.out.println("date2-"+System.currentTimeMillis());
                 System.out.println("在回调的回调中执行耗时操作...");
                 timeConsumingOperation();
                 return i + 100;
